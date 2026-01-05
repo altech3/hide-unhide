@@ -24,6 +24,20 @@ import platform
 import sys
 import os.path
 
+filename: str = sys.argv[0]
+
+# 	Detect OS
+if platform.system() == "Windows":
+	import subprocess # <-- For executing CMD / PowerShell 'attrib' command
+	OS: str = "Windows"
+
+elif platform.system() == "Linux":
+	OS: str = "Linux"
+
+else:
+	print("Sorry, your OS is not supported")
+	sys.exit(1)
+
 class Script:
 	def __init__(self, operating_system:str):
 		self.operating_system: str = operating_system
@@ -70,20 +84,6 @@ unhide, -unhide, --unhide, ud     --> Hide a file/directory
 			os.rename(target, visible_target)
 
 if __name__ == '__main__':
-	filename: str = sys.argv[0]
-
-# 	Detect OS
-	if platform.system() == "Windows":
-		import subprocess # <-- For executing CMD / PowerShell 'attrib' command
-		OS: str = "Windows"
-
-	elif platform.system() == "Linux":
-		OS: str = "Linux"
-
-	else:
-		print("Sorry, your OS is not supported")
-		sys.exit(1)
-
 	if len(sys.argv) == 1:
 		Script.usage()
 		sys.exit()
